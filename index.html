@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Repent Life</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: black;
+      color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4em;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: #00f; /* Blue */
+      font-size: 1em;
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0.5;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Repent.Life</h1>
-  <p>This is a test website hosted with GitHub Pages.</p>
+  <div>repent.life</div>
+
+  <script>
+    const snowCount = 100;
+
+    for (let i = 0; i < snowCount; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.textContent = "❄";
+      snowflake.style.left = Math.random() * 100 + "vw";
+      snowflake.style.animationDuration = 2 + Math.random() * 3 + "s";
+      snowflake.style.fontSize = 10 + Math.random() * 20 + "px";
+      document.body.appendChild(snowflake);
+    }
+  </script>
 </body>
 </html>
