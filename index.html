@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>clashings.me</title>
+  <title>.me</title>
   <style>
     body {
       margin: 0;
@@ -16,12 +16,13 @@
       font-family: Arial, sans-serif;
       overflow: hidden;
       position: relative;
+      flex-direction: column;
     }
 
     .snowflake {
       position: absolute;
       top: -10px;
-      color: #00f; /* Blue */
+      color: #00f;
       font-size: 1em;
       user-select: none;
       animation: fall linear infinite;
@@ -33,10 +34,48 @@
         opacity: 0.5;
       }
     }
+
+    #start-btn {
+      font-size: 0.3em;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #111;
+      color: white;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    #start-btn.fade-out {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+
+    #discord-btn {
+      font-size: 0.3em;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #5865F2;
+      color: white;
+      text-decoration: none;
+    }
+
+    #ytplayer {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div>repent.life</div>
+  <div>.me</div>
+  <button id="start-btn">Start</button>
+  <a id="discord-btn" href="https://discord.com/users/1233508337249812522" target="_blank">My Discord</a>
+
+  <div id="ytplayer"></div>
 
   <script>
     const snowCount = 100;
@@ -50,6 +89,52 @@
       snowflake.style.fontSize = 10 + Math.random() * 20 + "px";
       document.body.appendChild(snowflake);
     }
+
+    let player;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytplayer', {
+        height: '0',
+        width: '0',
+        videoId: 'dhgjffHI0io',
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: 'dhgjffHI0io'
+        },
+        events: {
+          onReady: function (event) {
+            let volume = 0;
+            event.target.setVolume(volume);
+            const fadeInterval = setInterval(() => {
+              if (volume < 100) {
+                volume += 5;
+                event.target.setVolume(volume);
+              } else {
+                clearInterval(fadeInterval);
+              }
+            }, 200);
+          }
+        }
+      });
+    }
+
+    document.getElementById("start-btn").addEventListener("click", () => {
+      // Fade out the start button
+      const startBtn = document.getElementById("start-btn");
+      startBtn.classList.add("fade-out");
+
+      // Start YouTube playback (API will handle it)
+      if (typeof YT !== "undefined" && YT.Player) {
+        onYouTubeIframeAPIReady();
+      }
+    });
+
+    // Load YouTube IFrame Player API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   </script>
 </body>
 </html>
